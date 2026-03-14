@@ -1,468 +1,790 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MIM Travel & Tours \u2014 Discover the World</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Mst. Mim – Travel Consultant</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 <style>
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 
-  :root {
-    --gold: #C9A84C;
-    --gold-light: #E8C96D;
-    --gold-pale: #F5EDD8;
-    --navy: #0F1E3C;
-    --navy-mid: #1A2F5A;
-    --cream: #FDFAF4;
-    --slate: #4A5568;
-    --white: #FFFFFF;
-  }
+/* ── THEMES ── */
+:root{
+  --blue:#2563eb;
+  --blue-dark:#1d4ed8;
+  --green:#22c55e;
+  --bg:#ebebeb;
+  --card:#ffffff;
+  --nav-bg:rgba(255,255,255,0.92);
+  --text:#0f172a;
+  --muted:#64748b;
+  --border:#e2e8f0;
+  --input-bg:#f8fafc;
+  --shadow:0 2px 12px rgba(0,0,0,0.08);
+}
+[data-theme="dark"]{
+  --bg:#0f172a;
+  --card:#1e293b;
+  --nav-bg:rgba(15,23,42,0.95);
+  --text:#f1f5f9;
+  --muted:#94a3b8;
+  --border:#334155;
+  --input-bg:#0f172a;
+  --shadow:0 2px 12px rgba(0,0,0,0.4);
+}
 
-  html { scroll-behavior: smooth; }
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  background:var(--bg);color:var(--text);
+  min-height:100vh;
+  transition:background 0.3s,color 0.3s;
+}
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--cream);
-    color: var(--navy);
-    overflow-x: hidden;
-  }
+/* ── TOP FULL HEADER ── */
+.top-nav{
+  position:fixed;top:0;left:0;right:0;
+  z-index:200;
+  background:var(--nav-bg);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  padding:14px 20px;
+  display:flex;align-items:center;justify-content:space-between;
+  box-shadow:var(--shadow);
+  transition:background 0.3s,border 0.3s;
+}
+.nav-logo{font-weight:800;font-size:20px;letter-spacing:-0.5px;color:var(--text);}
+.nav-right{display:flex;align-items:center;gap:8px;}
+.nav-icon-btn{
+  width:36px;height:36px;border-radius:50%;
+  border:1px solid var(--border);
+  background:var(--card);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:16px;
+  transition:all 0.2s;color:var(--text);
+}
+.nav-icon-btn:hover{background:var(--bg);}
 
-  /* \u2500\u2500 NAV \u2500\u2500 */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 20px 60px;
-    background: rgba(15,30,60,0.96);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(201,168,76,0.25);
-  }
-  .nav-logo {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 26px; font-weight: 600;
-    color: var(--gold);
-    letter-spacing: 2px;
-    text-decoration: none;
-  }
-  .nav-logo span { color: var(--white); font-weight: 300; }
-  .nav-links { display: flex; gap: 36px; list-style: none; }
-  .nav-links a {
-    color: rgba(255,255,255,0.75);
-    text-decoration: none; font-size: 13px;
-    letter-spacing: 1.5px; text-transform: uppercase;
-    transition: color 0.3s;
-  }
-  .nav-links a:hover { color: var(--gold); }
-  .nav-cta {
-    background: var(--gold); color: var(--navy);
-    padding: 10px 24px; border-radius: 2px;
-    font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase;
-    font-weight: 500; text-decoration: none;
-    transition: background 0.3s, transform 0.2s;
-  }
-  .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
+/* ── BOTTOM NAV ── */
+.bottom-nav{
+  position:fixed;bottom:0;left:0;right:0;z-index:200;
+  background:var(--nav-bg);
+  backdrop-filter:blur(20px);
+  border-top:1px solid var(--border);
+  display:flex;justify-content:space-around;align-items:center;
+  padding:10px 0 18px;
+  transition:background 0.3s,border 0.3s;
+}
+.bnav-item{
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  cursor:pointer;padding:4px 16px;border-radius:12px;
+  transition:all 0.2s;text-decoration:none;
+}
+.bnav-item.active .bnav-icon{color:var(--blue);}
+.bnav-item.active .bnav-label{color:var(--blue);}
+.bnav-icon{font-size:20px;color:var(--muted);transition:color 0.2s;}
+.bnav-label{font-size:10px;font-weight:600;color:var(--muted);letter-spacing:0.3px;transition:color 0.2s;}
 
-  /* \u2500\u2500 HERO \u2500\u2500 */
-  .hero {
-    min-height: 100vh;
-    background: linear-gradient(135deg, #0F1E3C 0%, #1A2F5A 50%, #0D2247 100%);
-    display: flex; align-items: center; justify-content: center;
-    text-align: center;
-    position: relative; overflow: hidden;
-    padding: 120px 40px 80px;
-  }
-  .hero::before {
-    content: '';
-    position: absolute; inset: 0;
-    background:
-      radial-gradient(ellipse 60% 40% at 50% 60%, rgba(201,168,76,0.08) 0%, transparent 70%),
-      url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C9A84C' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-  }
-  .hero-badge {
-    display: inline-block;
-    border: 1px solid rgba(201,168,76,0.5);
-    color: var(--gold);
-    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
-    padding: 8px 20px; margin-bottom: 28px;
-    animation: fadeInDown 0.8s ease both;
-  }
-  .hero h1 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(52px, 8vw, 96px);
-    font-weight: 300; line-height: 1.05;
-    color: var(--white);
-    margin-bottom: 12px;
-    animation: fadeInUp 0.9s 0.1s ease both;
-  }
-  .hero h1 em { color: var(--gold); font-style: italic; }
-  .hero-sub {
-    font-size: 16px; color: rgba(255,255,255,0.55);
-    margin-bottom: 48px; letter-spacing: 0.5px; line-height: 1.7;
-    max-width: 480px; margin-left: auto; margin-right: auto;
-    animation: fadeInUp 1s 0.2s ease both;
-  }
-  .hero-btns {
-    display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
-    animation: fadeInUp 1s 0.3s ease both;
-  }
-  .btn-primary {
-    background: var(--gold); color: var(--navy);
-    padding: 16px 40px; font-size: 13px;
-    letter-spacing: 2px; text-transform: uppercase; font-weight: 500;
-    text-decoration: none; border-radius: 2px;
-    transition: all 0.3s;
-  }
-  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
-  .btn-secondary {
-    border: 1px solid rgba(255,255,255,0.3); color: var(--white);
-    padding: 16px 40px; font-size: 13px;
-    letter-spacing: 2px; text-transform: uppercase;
-    text-decoration: none; border-radius: 2px;
-    transition: all 0.3s;
-  }
-  .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+/* ── PAGE ── */
+.page{max-width:480px;margin:0 auto;padding:72px 20px 100px;}
 
-  .hero-scroll {
-    position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
-    display: flex; flex-direction: column; align-items: center; gap: 10px;
-    color: rgba(255,255,255,0.35); font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
-    animation: pulse 2s infinite;
-  }
-  .scroll-line {
-    width: 1px; height: 40px;
-    background: linear-gradient(to bottom, rgba(201,168,76,0.6), transparent);
-  }
+/* ── HERO ── */
+.hero{text-align:center;padding:32px 0 28px;}
+.avatar-wrap{position:relative;display:inline-block;margin-bottom:20px;}
+.avatar{
+  width:130px;height:130px;border-radius:50%;
+  border:3px solid var(--card);
+  object-fit:cover;
+  box-shadow:0 4px 24px rgba(0,0,0,0.12);
+  background:linear-gradient(135deg,#c9a84c,#2563eb);
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;font-weight:800;color:#fff;
+}
+.avatar-online{
+  position:absolute;bottom:6px;right:6px;
+  width:18px;height:18px;border-radius:50%;
+  background:var(--green);border:3px solid var(--card);
+}
+.hero-name{font-size:clamp(30px,8vw,42px);font-weight:800;letter-spacing:-1.5px;line-height:1.05;margin-bottom:6px;color:var(--text);}
+.hero-role{font-size:15px;color:var(--muted);font-weight:500;margin-bottom:4px;}
+.hero-loc{font-size:13px;color:var(--muted);display:flex;align-items:center;justify-content:center;gap:4px;margin-bottom:18px;}
+.hero-bio{font-size:14px;line-height:1.78;color:var(--muted);text-align:center;margin-bottom:24px;}
+.hero-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:28px;}
 
-  /* \u2500\u2500 DESTINATIONS \u2500\u2500 */
-  .section { padding: 100px 60px; }
-  .section-label {
-    font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
-    color: var(--gold); margin-bottom: 16px;
-  }
-  .section-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(38px, 5vw, 56px); font-weight: 300;
-    line-height: 1.1; color: var(--navy);
-    max-width: 560px;
-  }
-  .section-title em { font-style: italic; color: var(--gold); }
+/* BUTTONS */
+.btn-primary{
+  display:flex;align-items:center;gap:8px;
+  background:var(--blue);color:#fff;
+  padding:13px 22px;border-radius:50px;
+  font-size:14px;font-weight:700;border:none;cursor:pointer;
+  font-family:inherit;
+  transition:background 0.2s,transform 0.15s;
+  text-decoration:none;
+}
+.btn-primary:hover{background:var(--blue-dark);transform:translateY(-1px);}
+.btn-secondary{
+  display:flex;align-items:center;gap:8px;
+  background:transparent;color:var(--text);
+  padding:13px 22px;border-radius:50px;
+  font-size:14px;font-weight:700;
+  border:1.5px solid var(--border);cursor:pointer;
+  font-family:inherit;
+  transition:all 0.2s;text-decoration:none;
+}
+.btn-secondary:hover{background:var(--card);}
 
-  .destinations { background: var(--cream); }
-  .dest-header {
-    display: flex; align-items: flex-end; justify-content: space-between;
-    margin-bottom: 60px; flex-wrap: wrap; gap: 24px;
-  }
-  .dest-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    grid-template-rows: 280px 280px;
-    gap: 16px;
-  }
-  .dest-card {
-    position: relative; overflow: hidden; border-radius: 4px;
-    cursor: pointer;
-  }
-  .dest-card:first-child { grid-row: 1 / 3; }
-  .dest-bg {
-    width: 100%; height: 100%;
-    transition: transform 0.6s ease;
-  }
-  .dest-card:hover .dest-bg { transform: scale(1.05); }
-  .dest-overlay {
-    position: absolute; inset: 0;
-    background: linear-gradient(to top, rgba(15,30,60,0.85) 0%, rgba(15,30,60,0.1) 60%);
-    display: flex; flex-direction: column; justify-content: flex-end;
-    padding: 28px;
-  }
-  .dest-country {
-    font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
-    color: var(--gold); margin-bottom: 6px;
-  }
-  .dest-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 28px; font-weight: 300; color: var(--white);
-    line-height: 1.2;
-  }
-  .dest-card:first-child .dest-name { font-size: 42px; }
-  .dest-tag {
-    display: inline-block; margin-top: 10px;
-    background: rgba(201,168,76,0.2); border: 1px solid rgba(201,168,76,0.4);
-    color: var(--gold); font-size: 10px; letter-spacing: 2px;
-    text-transform: uppercase; padding: 5px 12px; border-radius: 20px;
-  }
+/* ── STATS ── */
+.stats-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:36px;}
+.stat-card{
+  background:var(--card);border-radius:20px;padding:22px 18px;
+  box-shadow:var(--shadow);text-align:center;
+  transition:background 0.3s;
+}
+.stat-num{font-size:34px;font-weight:900;color:var(--blue);letter-spacing:-1px;line-height:1;}
+.stat-label{font-size:12px;color:var(--muted);font-weight:500;margin-top:4px;line-height:1.4;}
 
-  /* Destination color-coded backgrounds */
-  .dest-dhaka { background: linear-gradient(135deg, #1a3a2a, #2d5a3d, #1a3a2a); }
-  .dest-maldives { background: linear-gradient(135deg, #006994, #00a8cc, #0077b6); }
-  .dest-thailand { background: linear-gradient(135deg, #8B3A3A, #C44D58, #8B3A3A); }
-  .dest-dubai { background: linear-gradient(135deg, #8B6914, #C9A84C, #8B6914); }
-  .dest-europe { background: linear-gradient(135deg, #2C3E7A, #4A62B3, #2C3E7A); }
+/* ── SECTIONS ── */
+.sec-label{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.sec-title{font-size:26px;font-weight:800;letter-spacing:-0.8px;margin-bottom:18px;color:var(--text);}
 
-  .dest-pattern {
-    width: 100%; height: 100%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 80px; opacity: 0.15;
-  }
-  .dest-card:first-child .dest-pattern { font-size: 140px; }
+/* ── ABOUT ── */
+.about-card{
+  background:var(--card);border-radius:20px;padding:22px;
+  box-shadow:var(--shadow);margin-bottom:36px;
+  font-size:14px;line-height:1.8;color:var(--muted);
+  transition:background 0.3s;
+}
 
-  /* \u2500\u2500 SERVICES \u2500\u2500 */
-  .services { background: var(--navy); padding: 100px 60px; }
-  .services .section-title { color: var(--white); }
-  .services .section-label { margin-bottom: 16px; }
-  .services-intro { color: rgba(255,255,255,0.5); font-size: 15px; line-height: 1.7; max-width: 400px; }
-  .services-header {
-    display: flex; align-items: flex-start; justify-content: space-between;
-    margin-bottom: 70px; gap: 40px; flex-wrap: wrap;
-  }
-  .services-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
-  }
-  .service-card {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(201,168,76,0.1);
-    padding: 48px 36px;
-    transition: all 0.3s;
-    position: relative; overflow: hidden;
-  }
-  .service-card::before {
-    content: '';
-    position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
-    background: var(--gold);
-    transform: scaleX(0); transform-origin: left;
-    transition: transform 0.4s ease;
-  }
-  .service-card:hover { background: rgba(201,168,76,0.05); border-color: rgba(201,168,76,0.25); }
-  .service-card:hover::before { transform: scaleX(1); }
-  .service-icon {
-    width: 52px; height: 52px;
-    border: 1px solid rgba(201,168,76,0.35);
-    display: flex; align-items: center; justify-content: center;
-    margin-bottom: 28px; font-size: 22px;
-    border-radius: 2px;
-  }
-  .service-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 22px; font-weight: 400; color: var(--white);
-    margin-bottom: 14px;
-  }
-  .service-desc { color: rgba(255,255,255,0.45); font-size: 14px; line-height: 1.7; }
+/* ── HIGHLIGHTS ── */
+.highlights-card{
+  background:var(--card);border-radius:20px;overflow:hidden;
+  box-shadow:var(--shadow);margin-bottom:36px;
+  transition:background 0.3s;
+}
+.hl-item{
+  display:flex;align-items:center;gap:14px;
+  padding:16px 18px;border-bottom:1px solid var(--border);
+  transition:border 0.3s;
+}
+.hl-item:last-child{border-bottom:none;}
+.hl-icon{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.hl-title{font-size:15px;font-weight:700;color:var(--text);}
+.hl-sub{font-size:12px;color:var(--muted);font-weight:500;margin-top:2px;}
 
-  /* \u2500\u2500 ABOUT / AGENT \u2500\u2500 */
-  .about { background: var(--gold-pale); padding: 100px 60px; }
-  .about-grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
-  }
-  .about-visual {
-    position: relative;
-  }
-  .about-card {
-    background: var(--navy);
-    padding: 52px;
-    border-radius: 4px;
-    position: relative;
-  }
-  .about-card::before {
-    content: '';
-    position: absolute; top: -16px; right: -16px;
-    width: 100%; height: 100%;
-    border: 2px solid var(--gold);
-    border-radius: 4px; z-index: -1;
-  }
-  .about-avatar {
-    width: 80px; height: 80px; border-radius: 50%;
-    background: linear-gradient(135deg, var(--gold), var(--gold-light));
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 32px; color: var(--navy); font-weight: 600;
-    margin-bottom: 24px;
-  }
-  .about-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 28px; color: var(--white); font-weight: 400;
-    margin-bottom: 4px;
-  }
-  .about-role { color: var(--gold); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 24px; }
-  .about-divider { height: 1px; background: rgba(255,255,255,0.1); margin: 24px 0; }
-  .about-info { display: flex; flex-direction: column; gap: 12px; }
-  .info-row { display: flex; justify-content: space-between; }
-  .info-label { color: rgba(255,255,255,0.4); font-size: 12px; letter-spacing: 1px; text-transform: uppercase; }
-  .info-val { color: var(--white); font-size: 13px; }
-  .about-skills {
-    display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px;
-  }
-  .skill-chip {
-    background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.3);
-    color: var(--gold); font-size: 11px; padding: 5px 12px; border-radius: 20px;
-    letter-spacing: 0.5px;
-  }
+/* ── TIMELINE ── */
+.timeline-card{
+  background:var(--card);border-radius:20px;
+  box-shadow:var(--shadow);margin-bottom:36px;
+  overflow:hidden;transition:background 0.3s;
+}
+.tl-row{display:flex;gap:14px;padding:18px;border-bottom:1px solid var(--border);transition:border 0.3s;}
+.tl-row:last-child{border-bottom:none;}
+.tl-dot-col{display:flex;flex-direction:column;align-items:center;padding-top:4px;}
+.tl-circle{width:12px;height:12px;border-radius:50%;background:var(--blue);flex-shrink:0;}
+.tl-line{width:2px;flex:1;background:var(--border);margin-top:6px;min-height:20px;}
+.tl-period{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--blue);font-weight:700;margin-bottom:4px;}
+.tl-role{font-size:15px;font-weight:700;color:var(--text);margin-bottom:2px;}
+.tl-company{font-size:12px;color:var(--muted);font-weight:600;margin-bottom:6px;}
+.tl-desc{font-size:12px;color:var(--muted);line-height:1.7;}
 
-  .about-text .section-label { margin-bottom: 16px; }
-  .about-text .section-title { margin-bottom: 24px; }
-  .about-desc {
-    color: var(--slate); font-size: 15px; line-height: 1.8;
-    margin-bottom: 20px;
-  }
-  .about-stats {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px;
-  }
-  .stat-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 44px; font-weight: 300; color: var(--navy); line-height: 1;
-  }
-  .stat-num span { color: var(--gold); }
-  .stat-label { font-size: 12px; color: var(--slate); letter-spacing: 1px; text-transform: uppercase; margin-top: 6px; }
+/* ── CONTACT ── */
+.contact-card{
+  background:var(--card);border-radius:20px;overflow:hidden;
+  box-shadow:var(--shadow);margin-bottom:20px;
+  transition:background 0.3s;
+}
+.contact-row{
+  display:flex;align-items:center;gap:14px;
+  padding:16px 18px;border-bottom:1px solid var(--border);
+  text-decoration:none;color:var(--text);
+  transition:background 0.2s,border 0.3s;
+  cursor:pointer;
+}
+.contact-row:last-child{border-bottom:none;}
+.contact-row:hover{background:var(--bg);}
+.c-icon{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.c-label{font-size:10px;color:var(--muted);font-weight:600;letter-spacing:0.5px;margin-bottom:2px;}
+.c-val{font-size:14px;font-weight:700;color:var(--text);}
+.c-arrow{color:var(--muted);margin-left:auto;font-size:16px;}
 
-  /* \u2500\u2500 PACKAGES \u2500\u2500 */
-  .packages { padding: 100px 60px; background: var(--cream); }
-  .pkg-header { text-align: center; margin-bottom: 64px; }
-  .pkg-header .section-title { margin: 0 auto 16px; text-align: center; }
-  .pkg-header .section-label { text-align: center; }
-  .pkg-sub { color: var(--slate); font-size: 15px; max-width: 480px; margin: 0 auto; line-height: 1.7; }
-  .pkg-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-  .pkg-card {
-    border: 1px solid rgba(15,30,60,0.1); border-radius: 4px;
-    overflow: hidden; transition: all 0.3s; background: var(--white);
-  }
-  .pkg-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(15,30,60,0.12); }
-  .pkg-card.featured { border-color: var(--gold); position: relative; }
-  .pkg-card.featured::before {
-    content: 'MOST POPULAR';
-    position: absolute; top: 18px; right: 18px;
-    background: var(--gold); color: var(--navy);
-    font-size: 9px; letter-spacing: 2px; padding: 5px 10px; border-radius: 20px;
-  }
-  .pkg-img {
-    height: 200px; display: flex; align-items: center; justify-content: center;
-    font-size: 64px;
-  }
-  .pkg-img-beach { background: linear-gradient(135deg, #006994, #0096c7, #48cae4); }
-  .pkg-img-city { background: linear-gradient(135deg, #370617, #e85d04, #f48c06); }
-  .pkg-img-nature { background: linear-gradient(135deg, #1b4332, #2d6a4f, #40916c); }
-  .pkg-body { padding: 32px 28px; }
-  .pkg-dest { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
-  .pkg-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 24px; font-weight: 400; color: var(--navy); margin-bottom: 12px;
-  }
-  .pkg-desc { font-size: 13px; color: var(--slate); line-height: 1.6; margin-bottom: 24px; }
-  .pkg-details { display: flex; gap: 20px; margin-bottom: 24px; flex-wrap: wrap; }
-  .pkg-detail { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--slate); }
-  .pkg-footer {
-    display: flex; align-items: center; justify-content: space-between;
-    padding-top: 20px; border-top: 1px solid rgba(15,30,60,0.08);
-  }
-  .pkg-price { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 400; color: var(--navy); }
-  .pkg-price small { font-size: 13px; color: var(--slate); font-family: 'DM Sans', sans-serif; }
-  .pkg-btn {
-    background: var(--navy); color: var(--white);
-    padding: 10px 22px; font-size: 11px; letter-spacing: 1.5px;
-    text-transform: uppercase; text-decoration: none; border-radius: 2px;
-    transition: all 0.3s;
-  }
-  .pkg-btn:hover, .pkg-card.featured .pkg-btn { background: var(--gold); color: var(--navy); }
+/* ── WHATSAPP BUTTON ── */
+.wa-main-btn{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  background:#25d366;color:#fff;
+  padding:16px;border-radius:18px;
+  font-size:15px;font-weight:700;border:none;cursor:pointer;
+  font-family:inherit;width:100%;margin-bottom:36px;
+  box-shadow:0 4px 20px rgba(37,211,102,0.3);
+  transition:all 0.2s;
+}
+.wa-main-btn:hover{background:#1db954;transform:translateY(-1px);}
 
-  /* \u2500\u2500 CONTACT \u2500\u2500 */
-  .contact { background: var(--navy); padding: 100px 60px; }
-  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
-  .contact .section-title { color: var(--white); margin-bottom: 24px; }
-  .contact-desc { color: rgba(255,255,255,0.5); font-size: 15px; line-height: 1.7; margin-bottom: 48px; }
-  .contact-items { display: flex; flex-direction: column; gap: 24px; }
-  .contact-item { display: flex; gap: 18px; align-items: flex-start; }
-  .c-icon {
-    width: 44px; height: 44px; flex-shrink: 0;
-    border: 1px solid rgba(201,168,76,0.3);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 18px; border-radius: 2px;
-  }
-  .c-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
-  .c-val { color: rgba(255,255,255,0.75); font-size: 15px; }
+/* ── OVERLAY / MODAL ── */
+.overlay{
+  position:fixed;inset:0;z-index:400;
+  background:rgba(0,0,0,0.5);
+  backdrop-filter:blur(4px);
+  display:none;align-items:flex-end;justify-content:center;
+  padding:0 12px 20px;
+}
+.overlay.show{display:flex;}
+.modal{
+  background:var(--card);border-radius:28px;
+  padding:28px 24px 24px;
+  width:100%;max-width:440px;
+  position:relative;
+  animation:slideUp 0.3s ease;
+  transition:background 0.3s;
+}
+@keyframes slideUp{from{transform:translateY(40px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+.modal-close{
+  position:absolute;top:16px;right:16px;
+  width:34px;height:34px;border-radius:50%;
+  background:var(--bg);border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;color:var(--muted);
+  transition:background 0.2s;
+}
+.modal-close:hover{background:var(--border);}
+.modal-wa-icon{
+  width:64px;height:64px;border-radius:50%;
+  background:#25d366;
+  display:flex;align-items:center;justify-content:center;
+  font-size:32px;margin:0 auto 16px;
+}
+.modal-title{font-size:22px;font-weight:800;text-align:center;margin-bottom:6px;color:var(--text);letter-spacing:-0.5px;}
+.modal-sub{font-size:14px;color:var(--muted);text-align:center;margin-bottom:24px;line-height:1.5;}
+.purpose-btn{
+  display:flex;align-items:center;gap:14px;
+  width:100%;padding:16px 18px;border-radius:16px;
+  border:none;cursor:pointer;font-family:inherit;
+  text-align:left;transition:all 0.2s;margin-bottom:10px;
+}
+.purpose-btn:last-child{margin-bottom:0;}
+.purpose-btn.business{background:#22c55e;color:#fff;}
+.purpose-btn.business:hover{background:#16a34a;}
+.purpose-btn.casual{background:var(--bg);color:var(--text);}
+.purpose-btn.casual:hover{background:var(--border);}
+.purpose-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.purpose-btn.business .purpose-icon{background:rgba(255,255,255,0.2);}
+.purpose-btn.casual .purpose-icon{background:var(--card);}
+.purpose-title{font-size:16px;font-weight:800;margin-bottom:2px;}
+.purpose-desc{font-size:12px;opacity:0.8;font-weight:500;}
+.purpose-arrow{margin-left:auto;font-size:18px;opacity:0.7;}
 
-  .contact-form { display: flex; flex-direction: column; gap: 16px; }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .form-group { display: flex; flex-direction: column; gap: 8px; }
-  .form-group label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.45); }
-  .form-group input,
-  .form-group select,
-  .form-group textarea {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
-    color: var(--white); padding: 14px 18px; font-size: 14px;
-    font-family: 'DM Sans', sans-serif; border-radius: 2px;
-    outline: none; transition: border-color 0.3s;
-    appearance: none;
-  }
-  .form-group input::placeholder,
-  .form-group textarea::placeholder { color: rgba(255,255,255,0.25); }
-  .form-group input:focus,
-  .form-group select:focus,
-  .form-group textarea:focus { border-color: rgba(201,168,76,0.6); }
-  .form-group textarea { resize: vertical; min-height: 110px; }
-  .form-group select option { background: var(--navy); }
-  .form-submit {
-    background: var(--gold); color: var(--navy);
-    padding: 16px 40px; font-size: 13px; letter-spacing: 2px; text-transform: uppercase;
-    font-weight: 500; border: none; border-radius: 2px; cursor: pointer;
-    font-family: 'DM Sans', sans-serif; transition: all 0.3s;
-    align-self: flex-start;
-  }
-  .form-submit:hover { background: var(--gold-light); transform: translateY(-2px); }
+/* SORRY MODAL */
+.sorry-modal{display:none;}
+.sorry-modal.show{display:flex;}
+.sorry-emoji{font-size:52px;text-align:center;margin-bottom:12px;}
+.sorry-title{font-size:22px;font-weight:800;text-align:center;margin-bottom:10px;color:var(--text);letter-spacing:-0.5px;}
+.sorry-text{font-size:14px;color:var(--muted);text-align:center;line-height:1.6;margin-bottom:24px;}
+.go-back-btn{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  width:100%;padding:14px;border-radius:50px;
+  background:var(--bg);border:none;cursor:pointer;
+  font-size:14px;font-weight:700;color:var(--text);
+  font-family:inherit;transition:background 0.2s;
+}
+.go-back-btn:hover{background:var(--border);}
 
-  /* \u2500\u2500 FOOTER \u2500\u2500 */
-  footer {
-    background: #080E1E; padding: 60px;
-    border-top: 1px solid rgba(201,168,76,0.15);
-  }
-  .footer-grid {
-    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 48px;
-  }
-  .footer-brand .nav-logo { font-size: 22px; margin-bottom: 16px; display: block; }
-  .footer-brand p { color: rgba(255,255,255,0.4); font-size: 13px; line-height: 1.7; max-width: 260px; }
-  .footer-col h4 {
-    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
-    color: var(--gold); margin-bottom: 20px;
-  }
-  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-  .footer-col ul li a { color: rgba(255,255,255,0.4); text-decoration: none; font-size: 13px; transition: color 0.3s; }
-  .footer-col ul li a:hover { color: var(--gold); }
-  .footer-bottom {
-    border-top: 1px solid rgba(255,255,255,0.06); padding-top: 28px;
-    display: flex; justify-content: space-between; align-items: center;
-    color: rgba(255,255,255,0.3); font-size: 12px;
-  }
+/* ── CHAT FAB ── */
+.chat-fab{
+  position:fixed;bottom:84px;right:18px;z-index:300;
+  width:54px;height:54px;border-radius:50%;
+  background:var(--blue);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;cursor:pointer;border:none;
+  box-shadow:0 4px 20px rgba(37,99,235,0.45);
+  transition:transform 0.2s;
+}
+.chat-fab:hover{transform:scale(1.08);}
+.chat-badge{
+  position:absolute;top:-2px;right:-2px;
+  width:18px;height:18px;border-radius:50%;
+  background:#ef4444;color:#fff;font-size:9px;font-weight:800;
+  display:flex;align-items:center;justify-content:center;
+  border:2px solid var(--bg);
+}
 
-  /* \u2500\u2500 ANIMATIONS \u2500\u2500 */
-  @keyframes fadeInDown {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes pulse {
-    0%, 100% { opacity: 0.35; }
-    50% { opacity: 0.8; }
-  }
+/* ── CHAT PANEL ── */
+.chat-panel{
+  position:fixed;bottom:80px;right:12px;z-index:310;
+  width:calc(100vw - 24px);max-width:370px;
+  background:var(--card);border-radius:24px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.18);
+  display:none;flex-direction:column;overflow:hidden;
+  max-height:500px;
+  transition:background 0.3s;
+}
+.chat-panel.open{display:flex;}
+.chat-head{
+  background:var(--blue);color:#fff;
+  padding:14px 16px;display:flex;align-items:center;gap:12px;
+}
+.chat-av{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.chat-head-name{font-size:14px;font-weight:700;}
+.chat-head-status{font-size:11px;opacity:0.85;display:flex;align-items:center;gap:4px;}
+.dot-online{width:6px;height:6px;border-radius:50%;background:#86efac;}
+.chat-x{margin-left:auto;background:rgba(255,255,255,0.2);border:none;color:#fff;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;}
+.chat-tabs{display:flex;border-bottom:1px solid var(--border);}
+.ctab{
+  flex:1;padding:10px 6px;font-size:12px;font-weight:700;
+  cursor:pointer;color:var(--muted);
+  border-bottom:2px solid transparent;
+  background:none;border-top:none;border-left:none;border-right:none;
+  font-family:inherit;transition:all 0.2s;color:var(--muted);
+}
+.ctab.active{color:var(--blue);border-bottom-color:var(--blue);}
+.chat-msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:9px;min-height:160px;max-height:260px;}
+.msg{max-width:82%;padding:9px 13px;border-radius:16px;font-size:13px;line-height:1.5;}
+.msg.bot{background:var(--bg);color:var(--text);align-self:flex-start;border-bottom-left-radius:4px;}
+.msg.user{background:var(--blue);color:#fff;align-self:flex-end;border-bottom-right-radius:4px;}
+.typing{display:flex;gap:4px;align-items:center;padding:9px 13px;background:var(--bg);border-radius:16px;border-bottom-left-radius:4px;align-self:flex-start;width:54px;}
+.typing span{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:bounce 1.2s infinite;}
+.typing span:nth-child(2){animation-delay:0.2s;}
+.typing span:nth-child(3){animation-delay:0.4s;}
+@keyframes bounce{0%,80%,100%{transform:translateY(0);}40%{transform:translateY(-6px);}}
+.qr-wrap{padding:8px 12px;display:flex;flex-wrap:wrap;gap:6px;}
+.qr{padding:6px 12px;border-radius:20px;border:1.5px solid var(--blue);color:var(--blue);font-size:11px;font-weight:700;background:none;cursor:pointer;font-family:inherit;transition:all 0.2s;white-space:nowrap;}
+.qr:hover{background:var(--blue);color:#fff;}
+.chat-inp-row{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--border);}
+.chat-inp{
+  flex:1;border:1.5px solid var(--border);border-radius:50px;
+  padding:9px 14px;font-size:13px;font-family:inherit;outline:none;
+  background:var(--input-bg);color:var(--text);
+  transition:border-color 0.2s,background 0.3s,color 0.3s;
+}
+.chat-inp:focus{border-color:var(--blue);}
+.chat-send{
+  width:36px;height:36px;border-radius:50%;background:var(--blue);color:#fff;
+  border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;
+}
+.unavail{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 20px;text-align:center;flex:1;gap:10px;}
+.unavail-emoji{font-size:44px;}
+.unavail-title{font-size:15px;font-weight:800;color:var(--text);}
+.unavail-text{font-size:13px;color:var(--muted);line-height:1.6;max-width:240px;}
 
-  /* \u2500\u2500 RESPONSIVE \u2500\u2500 */
-  @media (max-width: 900px) {
-    nav { padding: 16px 24px; }
-    .nav-links { display: none; }
-    .section { padding: 70px 24px; }
-    .dest-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
-    .dest-card:first-child { grid-column: 1 / 3; grid-row: auto; }
-    .services-grid { grid-template-columns: 1fr; }
-    .about-grid { grid-template-columns: 1fr; }
-    .pkg-grid { grid-template-columns: 1fr; }
-    .contact-grid { grid-template-columns: 1fr; }
-    .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
-    .form-row { grid-template-columns: 1fr; }
-    .about { padding: 70px 24px; }
-    .services { padding: 70px 24px; }
-    .contact { padding: 70px 24px; }
-    footer { padding: 48px 24px; }
-    .packages { padding: 70px 24px; }
-    .destinations { padding: 70px 24px; }
-  }
+/* ── SCROLL ANIM ── */
+.fade-in{opacity:0;transform:translateY(22px);transition:opacity 0.5s ease,transform 0.5s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+
+footer{text-align:center;padding:16px;font-size:11px;color:var(--muted);}
 </style>
-</head
+</head>
+<body>
+
+<!-- TOP FULL HEADER -->
+<header class="top-nav">
+  <span class="nav-logo">MIM ✈️</span>
+  <div class="nav-right">
+    <button class="nav-icon-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle theme">☀️</button>
+    <button class="nav-icon-btn" title="Menu">☰</button>
+  </div>
+</header>
+
+<!-- PAGE CONTENT -->
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero fade-in">
+    <div class="avatar-wrap">
+      <img class="avatar" src="https://raw.githubusercontent.com/bruce672/Mim-carrier/main/file_00000000c8247243b6073fe03e5d0cb1.png" alt="Mst. Mim" onerror="this.style.display='none';document.getElementById('avatarFallback').style.display='flex';"/>
+      <div class="avatar" id="avatarFallback" style="display:none;">MM</div>
+      <div class="avatar-online"></div>
+    </div>
+    <h1 class="hero-name">Mst. Mim</h1>
+    <p class="hero-role">Middle East Travel Consultant</p>
+    <p class="hero-loc">📍 Gazipur, Bangladesh</p>
+    <p class="hero-bio">
+      I specialize in helping Bangladeshi workers and job seekers reach the Middle East — Saudi Arabia, UAE, Qatar, Kuwait, Oman &amp; Bahrain. From visa processing to flight booking and work permit guidance, I make your journey to the Gulf smooth and stress-free.
+    </p>
+    <div class="hero-cta">
+      <button class="btn-primary" onclick="openWaModal()">
+        <span>💬</span> Let's Connect
+      </button>
+      <a href="mailto:mimislam55986@gmail.com" class="btn-secondary">
+        <span>↓</span> Email
+      </a>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-row fade-in">
+    <div class="stat-card">
+      <div class="stat-num">6+</div>
+      <div class="stat-label">Gulf<br>Countries</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">2+</div>
+      <div class="stat-label">Years<br>Experience</div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <div id="about" class="fade-in">
+    <p class="sec-label">About</p>
+    <h2 class="sec-title">Who I Am</h2>
+    <div class="about-card">
+      I am a dedicated Middle East Travel Consultant based in Gazipur, Bangladesh, working at Khan Overseas. I specialize in helping Bangladeshi workers, job seekers, and families travel to Saudi Arabia, UAE, Qatar, Kuwait, Oman, and Bahrain.
+      <br/><br/>
+      From work visa processing and manpower documentation to flight booking and full pre-departure guidance — I handle everything so your journey to the Gulf is smooth, legal, and successful. Your dream job in the Middle East starts here. 🌙
+    </div>
+  </div>
+
+  <!-- HIGHLIGHTS -->
+  <div id="services" class="fade-in">
+    <p class="sec-label">Highlights</p>
+    <h2 class="sec-title">What I Offer</h2>
+    <div class="highlights-card">
+      <div class="hl-item">
+        <div class="hl-icon" style="background:#fef9c3;">🇸🇦</div>
+        <div>
+          <div class="hl-title">Middle East Work Visa</div>
+          <div class="hl-sub">Saudi Arabia, UAE, Qatar, Kuwait, Oman, Bahrain</div>
+        </div>
+      </div>
+      <div class="hl-item">
+        <div class="hl-icon" style="background:#eff6ff;">📋</div>
+        <div>
+          <div class="hl-title">Manpower & Documentation</div>
+          <div class="hl-sub">Work Permit, BMET, Medical &amp; Clearance</div>
+        </div>
+      </div>
+      <div class="hl-item">
+        <div class="hl-icon" style="background:#f0fdf4;">✈️</div>
+        <div>
+          <div class="hl-title">Flight Booking</div>
+          <div class="hl-sub">Best Fares to Gulf Countries</div>
+        </div>
+      </div>
+      <div class="hl-item">
+        <div class="hl-icon" style="background:#fff7ed;">🏨</div>
+        <div>
+          <div class="hl-title">Hotel &amp; Tour Packages</div>
+          <div class="hl-sub">Hajj, Umrah &amp; Gulf Tourism</div>
+        </div>
+      </div>
+      <div class="hl-item">
+        <div class="hl-icon" style="background:#fdf4ff;">🤝</div>
+        <div>
+          <div class="hl-title">Pre-Departure Guidance</div>
+          <div class="hl-sub">Full Support Before You Fly</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXPERIENCE -->
+  <div id="experience" class="fade-in">
+    <p class="sec-label">Experience</p>
+    <h2 class="sec-title">Work History</h2>
+    <div class="timeline-card">
+      <div class="tl-row">
+        <div class="tl-dot-col"><div class="tl-circle"></div><div class="tl-line"></div></div>
+        <div>
+          <div class="tl-period">Oct 2025 – Present</div>
+          <div class="tl-role">Marketing Officer</div>
+          <div class="tl-company">Khan Overseas</div>
+          <div class="tl-desc">Client acquisition, promotional campaigns for overseas travel, and building lasting traveler relationships.</div>
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-dot-col"><div class="tl-circle"></div></div>
+        <div>
+          <div class="tl-period">Oct 2023 – Oct 2025</div>
+          <div class="tl-role">Computer Operator</div>
+          <div class="tl-company">Crystal Martin Apparels Ltd.</div>
+          <div class="tl-desc">Data management, documentation, and administrative coordination in a professional environment.</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="sec-label" style="margin-top:28px;">Education</p>
+    <h2 class="sec-title">Academic Background</h2>
+    <div class="timeline-card">
+      <div class="tl-row">
+        <div class="tl-dot-col"><div class="tl-circle"></div><div class="tl-line"></div></div>
+        <div>
+          <div class="tl-period">Ongoing</div>
+          <div class="tl-role">BSc – Apparel Manufacturing &amp; Technology</div>
+          <div class="tl-company">Sonargaon University · 3rd Semester</div>
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-dot-col"><div class="tl-circle"></div><div class="tl-line"></div></div>
+        <div>
+          <div class="tl-period">2023</div>
+          <div class="tl-role">HSC – Humanities</div>
+          <div class="tl-company">Govt. Debendra College · GPA 3.50/5.00</div>
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-dot-col"><div class="tl-circle"></div></div>
+        <div>
+          <div class="tl-period">2020</div>
+          <div class="tl-role">SSC – Science</div>
+          <div class="tl-company">Bannal Lakkhu Hazi High School · GPA 4.39/5.00</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div id="contact" class="fade-in">
+    <p class="sec-label">Contact</p>
+    <h2 class="sec-title">Get In Touch</h2>
+
+    <div class="contact-card">
+      <div class="contact-row" onclick="openWaModal()">
+        <div class="c-icon" style="background:#dcfce7;">📱</div>
+        <div>
+          <div class="c-label">WhatsApp</div>
+          <div class="c-val">+880 1607-627002</div>
+        </div>
+        <span class="c-arrow">›</span>
+      </div>
+      <a href="mailto:mimislam55986@gmail.com" class="contact-row">
+        <div class="c-icon" style="background:#eff6ff;">✉️</div>
+        <div>
+          <div class="c-label">Email</div>
+          <div class="c-val">mimislam55986@gmail.com</div>
+        </div>
+        <span class="c-arrow">›</span>
+      </a>
+      <div class="contact-row">
+        <div class="c-icon" style="background:#fff7ed;">📍</div>
+        <div>
+          <div class="c-label">Location</div>
+          <div class="c-val">Kewa Bazar, Gazipur, Bangladesh</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<footer>© 2025 Mst. Mim · Travel Consultant</footer>
+
+<!-- ══ BOTTOM NAV ══ -->
+<nav class="bottom-nav">
+  <a class="bnav-item active" href="#about">
+    <span class="bnav-icon">🏠</span>
+    <span class="bnav-label">Home</span>
+  </a>
+  <a class="bnav-item" href="#services">
+    <span class="bnav-icon">✈️</span>
+    <span class="bnav-label">Services</span>
+  </a>
+  <a class="bnav-item" href="#experience">
+    <span class="bnav-icon">💼</span>
+    <span class="bnav-label">Work</span>
+  </a>
+  <a class="bnav-item" href="#contact">
+    <span class="bnav-icon">📞</span>
+    <span class="bnav-label">Contact</span>
+  </a>
+</nav>
+
+<!-- ══ CHAT FAB ══ -->
+<button class="chat-fab" id="chatFab" onclick="toggleChat()">
+  💬
+  <div class="chat-badge">1</div>
+</button>
+
+<!-- ══ CHAT PANEL ══ -->
+<div class="chat-panel" id="chatPanel">
+  <div class="chat-head">
+    <div class="chat-av">✈️</div>
+    <div>
+      <div class="chat-head-name">Mim's Travel Assistant</div>
+      <div class="chat-head-status"><span class="dot-online"></span> Online now</div>
+    </div>
+    <button class="chat-x" onclick="toggleChat()">✕</button>
+  </div>
+  <div class="chat-tabs">
+    <button class="ctab active" id="ctabTravel" onclick="switchCTab('travel')">✈️ Travel Query</button>
+    <button class="ctab" id="ctabCasual" onclick="switchCTab('casual')">💬 Casual Chat</button>
+  </div>
+  <!-- Travel Panel -->
+  <div id="cpanelTravel" style="display:flex;flex-direction:column;flex:1;overflow:hidden;">
+    <div class="chat-msgs" id="chatMsgs"></div>
+    <div class="qr-wrap" id="qrWrap">
+      <button class="qr" onclick="sendQ('Saudi Arabia visa 🇸🇦')">Saudi visa</button>
+      <button class="qr" onclick="sendQ('UAE work visa 🇦🇪')">UAE visa</button>
+      <button class="qr" onclick="sendQ('BMET clearance process')">BMET process</button>
+      <button class="qr" onclick="sendQ('Flight to Dubai ✈️')">Gulf flights</button>
+    </div>
+    <div class="chat-inp-row">
+      <input class="chat-inp" id="chatInput" placeholder="Ask about travel..." onkeydown="if(event.key==='Enter')sendMsg()"/>
+      <button class="chat-send" onclick="sendMsg()">➤</button>
+    </div>
+  </div>
+  <!-- Casual Panel -->
+  <div id="cpanelCasual" style="display:none;flex:1;">
+    <div class="unavail">
+      <div class="unavail-emoji">🙏</div>
+      <div class="unavail-title">Sorry, not available!</div>
+      <div class="unavail-text">This space is only for <strong>travel queries</strong>. For casual chat, please reach out via WhatsApp!</div>
+      <button class="btn-primary" onclick="openWaModal()" style="margin-top:8px;font-size:13px;padding:11px 20px;">
+        <span>💬</span> Open WhatsApp
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ WHATSAPP PURPOSE MODAL ══ -->
+<div class="overlay" id="waOverlay" onclick="handleOverlayClick(event)">
+  <!-- Purpose Selection -->
+  <div class="modal" id="purposeModal">
+    <button class="modal-close" onclick="closeWaModal()">✕</button>
+    <div class="modal-wa-icon">💬</div>
+    <div class="modal-title">Select Purpose</div>
+    <div class="modal-sub">How would you like to connect<br/>with Mst. Mim?</div>
+    <button class="purpose-btn business" onclick="goWhatsApp()">
+      <div class="purpose-icon">🌙</div>
+      <div>
+        <div class="purpose-title">Travel Inquiry</div>
+        <div class="purpose-desc">Middle East visa, jobs &amp; travel bookings</div>
+      </div>
+      <span class="purpose-arrow">›</span>
+    </button>
+    <button class="purpose-btn casual" onclick="showSorry()">
+      <div class="purpose-icon">💬</div>
+      <div>
+        <div class="purpose-title">Casual</div>
+        <div class="purpose-desc">General chat &amp; social conversations</div>
+      </div>
+      <span class="purpose-arrow">›</span>
+    </button>
+  </div>
+
+  <!-- Sorry Modal -->
+  <div class="modal sorry-modal" id="sorryModal">
+    <button class="modal-close" onclick="closeWaModal()">✕</button>
+    <div class="sorry-emoji">😞</div>
+    <div class="sorry-title">Sorry!</div>
+    <div class="sorry-text">I'm not available for casual chat.<br/>Please reach out for <strong>travel purposes</strong> only.</div>
+    <button class="go-back-btn" onclick="goBack()">← Go Back</button>
+  </div>
+</div>
+
+<script>
+// ── THEME ──
+let dark = false;
+function toggleTheme(){
+  dark = !dark;
+  document.documentElement.setAttribute('data-theme', dark ? 'dark' : '');
+  document.getElementById('themeBtn').textContent = dark ? '🌙' : '☀️';
+}
+
+// ── BOTTOM NAV ACTIVE ──
+document.querySelectorAll('.bnav-item').forEach(item => {
+  item.addEventListener('click', () => {
+    document.querySelectorAll('.bnav-item').forEach(i => i.classList.remove('active'));
+    item.classList.add('active');
+  });
+});
+
+// ── WA MODAL ──
+function openWaModal(){
+  document.getElementById('waOverlay').classList.add('show');
+  document.getElementById('purposeModal').style.display = 'block';
+  document.getElementById('sorryModal').classList.remove('show');
+}
+function closeWaModal(){
+  document.getElementById('waOverlay').classList.remove('show');
+}
+function handleOverlayClick(e){
+  if(e.target === document.getElementById('waOverlay')) closeWaModal();
+}
+function goWhatsApp(){
+  window.open('https://wa.me/8801607627002?text=Hi%20Mim!%20I%27d%20like%20to%20inquire%20about%20a%20travel%20package.','_blank');
+  closeWaModal();
+}
+function showSorry(){
+  document.getElementById('purposeModal').style.display = 'none';
+  document.getElementById('sorryModal').classList.add('show');
+}
+function goBack(){
+  document.getElementById('sorryModal').classList.remove('show');
+  document.getElementById('purposeModal').style.display = 'block';
+}
+
+// ── CHAT ──
+let chatOpen = false;
+let history = [];
+const SYSTEM = `You are a helpful travel assistant for Mst. Mim, a Middle East Travel Consultant in Gazipur, Bangladesh. Contact: WhatsApp +8801607627002, Email: mimislam55986@gmail.com.
+You specialize in helping Bangladeshi workers and job seekers go to Middle East countries. Only answer questions about: Middle East work visa (Saudi Arabia, UAE, Qatar, Kuwait, Oman, Bahrain), manpower documentation (BMET clearance, medical, work permit), flight booking to Gulf countries, Hajj & Umrah packages, pre-departure guidance, and Gulf tourism. Keep answers concise, warm, and helpful in both English and Bengali if needed. For exact pricing or applications, always direct them to contact Mim on WhatsApp (+8801607627002).`;
+
+function toggleChat(){
+  chatOpen = !chatOpen;
+  document.getElementById('chatPanel').classList.toggle('open', chatOpen);
+  document.querySelector('.chat-badge').style.display = chatOpen ? 'none' : 'flex';
+  if(chatOpen && history.length === 0){
+    setTimeout(()=>addBot("Hi! 👋 I'm Mim's Travel Assistant. Ask me about tour packages, visa help, hotels, or flights!"), 350);
+  }
+}
+
+function switchCTab(tab){
+  document.getElementById('ctabTravel').classList.toggle('active', tab==='travel');
+  document.getElementById('ctabCasual').classList.toggle('active', tab==='casual');
+  document.getElementById('cpanelTravel').style.display = tab==='travel' ? 'flex' : 'none';
+  document.getElementById('cpanelCasual').style.display = tab==='casual' ? 'flex' : 'none';
+}
+
+function addBot(text){
+  const box = document.getElementById('chatMsgs');
+  const d = document.createElement('div');
+  d.className='msg bot'; d.textContent=text;
+  box.appendChild(d); box.scrollTop=box.scrollHeight;
+}
+function addUser(text){
+  const box = document.getElementById('chatMsgs');
+  const d = document.createElement('div');
+  d.className='msg user'; d.textContent=text;
+  box.appendChild(d); box.scrollTop=box.scrollHeight;
+}
+function showTyping(){
+  const box = document.getElementById('chatMsgs');
+  const d = document.createElement('div');
+  d.className='typing'; d.id='typeDots';
+  d.innerHTML='<span></span><span></span><span></span>';
+  box.appendChild(d); box.scrollTop=box.scrollHeight;
+}
+function removeTyping(){ const e=document.getElementById('typeDots'); if(e)e.remove(); }
+
+async function sendMsg(){
+  const inp = document.getElementById('chatInput');
+  const txt = inp.value.trim(); if(!txt) return;
+  inp.value='';
+  document.getElementById('qrWrap').style.display='none';
+  addUser(txt);
+  history.push({role:'user',content:txt});
+  showTyping();
+  try{
+    const r = await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:SYSTEM,messages:history})
+    });
+    const d = await r.json();
+    removeTyping();
+    const reply = d.content?.[0]?.text || "Sorry, try again!";
+    addBot(reply);
+    history.push({role:'assistant',content:reply});
+  }catch(e){
+    removeTyping();
+    addBot("Connection issue. Please contact Mim on WhatsApp: +8801607627002 📱");
+  }
+}
+function sendQ(t){ document.getElementById('chatInput').value=t; sendMsg(); }
+
+// ── SCROLL FADE ──
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);} });
+},{threshold:0.1});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
