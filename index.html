@@ -90,21 +90,7 @@ body{
 
 /* ── HERO ── */
 .hero{text-align:center;padding:32px 0 28px;}
-.avatar-wrap{position:relative;display:inline-block;margin-bottom:20px;}
-.avatar{
-  width:130px;height:130px;border-radius:50%;
-  border:3px solid var(--card);
-  object-fit:cover;
-  box-shadow:0 4px 24px rgba(0,0,0,0.12);
-  background:linear-gradient(135deg,#c9a84c,#2563eb);
-  display:flex;align-items:center;justify-content:center;
-  font-size:18px;font-weight:800;color:#fff;
-}
-.avatar-online{
-  position:absolute;bottom:6px;right:6px;
-  width:18px;height:18px;border-radius:50%;
-  background:var(--green);border:3px solid var(--card);
-}
+
 .hero-name{font-size:clamp(30px,8vw,42px);font-weight:800;letter-spacing:-1.5px;line-height:1.05;margin-bottom:6px;color:var(--text);}
 .hero-role{font-size:15px;color:var(--muted);font-weight:500;margin-bottom:4px;}
 .hero-loc{font-size:13px;color:var(--muted);display:flex;align-items:center;justify-content:center;gap:4px;margin-bottom:18px;}
@@ -135,6 +121,56 @@ body{
 }
 .btn-secondary:hover{background:var(--bg);transform:translateY(-2px);box-shadow:0 4px 14px rgba(0,0,0,0.1);}
 .btn-secondary:active{transform:translateY(0);}
+
+/* ── AVATAR RING ── */
+.avatar-ring{
+  width:136px;height:136px;border-radius:50%;
+  padding:3px;
+  background:linear-gradient(135deg,#2563eb,#7c3aed,#2563eb);
+  background-size:200% 200%;
+  animation:gradRing 3s ease infinite;
+}
+@keyframes gradRing{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+.avatar-wrap{position:relative;display:inline-block;margin-bottom:18px;}
+.avatar{
+  width:130px;height:130px;border-radius:50%;
+  border:3px solid var(--card);
+  object-fit:cover;
+  box-shadow:0 8px 32px rgba(37,99,235,0.2);
+  background:linear-gradient(135deg,#c9a84c,#2563eb);
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;
+}
+.avatar-online{
+  position:absolute;bottom:6px;right:6px;
+  width:20px;height:20px;border-radius:50%;
+  background:#22c55e;border:3px solid var(--card);
+  box-shadow:0 0 0 2px rgba(34,197,94,0.3);
+}
+
+/* ── HERO TAGS ── */
+.hero-tags{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:8px;}
+.hero-tag{
+  padding:4px 12px;border-radius:50px;
+  background:var(--card);border:1px solid var(--border);
+  font-size:12px;font-weight:600;color:var(--muted);
+  box-shadow:0 1px 4px rgba(0,0,0,0.05);
+}
+
+/* ── DESTINATION CHIPS ── */
+.dest-chips{
+  display:flex;gap:7px;justify-content:center;
+  flex-wrap:wrap;margin-bottom:24px;
+}
+.chip{
+  padding:6px 12px;border-radius:50px;
+  background:var(--card);
+  border:1px solid var(--border);
+  font-size:12px;font-weight:600;color:var(--text);
+  box-shadow:0 1px 4px rgba(0,0,0,0.05);
+  transition:all 0.2s;cursor:default;
+}
+.chip:hover{border-color:var(--blue);color:var(--blue);transform:translateY(-1px);}
 
 /* ── STATS ── */
 .stats-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:36px;}
@@ -390,17 +426,40 @@ footer{text-align:center;padding:16px;font-size:11px;color:var(--muted);}
 
   <!-- HERO -->
   <div class="hero fade-in">
+
+    <!-- Avatar with ring -->
     <div class="avatar-wrap">
-      <img class="avatar" src="https://raw.githubusercontent.com/bruce672/Mim-carrier/main/IMG-20260314-WA0000.jpg" alt="Mst. Mim" onerror="this.style.display='none';document.getElementById('avatarFallback').style.display='flex';"/>
-      <div class="avatar" id="avatarFallback" style="display:none;">MM</div>
+      <div class="avatar-ring">
+        <img class="avatar" src="https://raw.githubusercontent.com/bruce672/Mim-carrier/main/IMG-20260314-WA0000.jpg" alt="Mst. Mim" onerror="this.style.display='none';document.getElementById('avatarFallback').style.display='flex';"/>
+        <div class="avatar" id="avatarFallback" style="display:none;font-size:22px;font-weight:800;">MM</div>
+      </div>
       <div class="avatar-online"></div>
     </div>
+
+    <!-- Name + role -->
     <h1 class="hero-name">Mst. Mim</h1>
-    <p class="hero-role">Middle East Travel Consultant</p>
+    <div class="hero-tags">
+      <span class="hero-tag">✈️ Travel Consultant</span>
+      <span class="hero-tag">🌙 Middle East</span>
+    </div>
     <p class="hero-loc">📍 Gazipur, Bangladesh</p>
+
+    <!-- Bio -->
     <p class="hero-bio">
-      I specialize in helping Bangladeshi workers and job seekers reach the Middle East — Saudi Arabia, UAE, Qatar, Kuwait, Oman &amp; Bahrain. From visa processing to flight booking and work permit guidance, I make your journey to the Gulf smooth and stress-free.
+      Helping Bangladeshi workers reach the Gulf — Saudi Arabia, UAE, Qatar, Kuwait, Oman &amp; Bahrain. Visa processing, work permits &amp; flight booking, all in one place.
     </p>
+
+    <!-- Destination chips -->
+    <div class="dest-chips">
+      <span class="chip">🇸🇦 Saudi</span>
+      <span class="chip">🇦🇪 UAE</span>
+      <span class="chip">🇶🇦 Qatar</span>
+      <span class="chip">🇰🇼 Kuwait</span>
+      <span class="chip">🇴🇲 Oman</span>
+      <span class="chip">🇧🇭 Bahrain</span>
+    </div>
+
+    <!-- CTA Buttons -->
     <div class="hero-cta">
       <button class="btn-primary" onclick="openWaModal()">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.116 1.528 5.845L.057 23.571a.75.75 0 00.918.919l5.726-1.471A11.942 11.942 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.907 0-3.7-.503-5.25-1.383l-.378-.214-3.898 1.001 1.001-3.898-.214-.378A9.953 9.953 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
